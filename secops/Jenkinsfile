@@ -1,22 +1,22 @@
 pipeline {
+
     agent any
 
-    stages {
-        stage("Check docker") {
-            steps {
+    stage("Check docker") {
+        steps {
             script {
                 sh 'docker --version'
                 sh 'docker compose --version'
             }
-            }
         }
-        stages {
-            stage('OWASP Dependency Check') {
-                steps {
-                    script {
-                        def dep_check = sh(script: 'mvn org.owasp:dependency-check-maven:check', returnStdout: true)
-                        println dep_check
-                    }
+    }
+
+    stages {
+        stage('OWASP Dependency Check') {
+            steps {
+                script {
+                    def dep_check = sh(script: 'mvn org.owasp:dependency-check-maven:check', returnStdout: true)
+                    println dep_check
                 }
             }
         }
